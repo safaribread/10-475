@@ -11,3 +11,10 @@
               # ^if the datasets were all single/paired-end reads and their reads were the same length, you could treat them all the same from the import, but unlikely 
         # 6) Use the Qiime command to merge the data files 
         # 7) DataWrangling section on the proposal: describe how the metadata tables were consolidated 
+
+        #entry Thurs Feb 15, 2024
+        #Lab meeting agenda: 
+        # 1) Talk about compiled metadata file 
+        # 2) Task split
+        # 3) Demultiplexing and Quiime
+        # 4) Solidify research questions
