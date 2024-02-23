@@ -1,0 +1,103 @@
+# Chinese dataset, all codes run in /data/chinese/ 
+#import and demultiplex
+qiime tools import \
+  --type "SampleData[SequencesWithQuality]" \
+  --input-format SingleEndFastqManifestPhred33V2 \
+  --input-path /mnt/datasets/project_2/smoking/chinese_manifest.tsv \
+  --output-path chinese_demux_seqs.qza
+
+qiime demux summarize \
+  --i-data chinese_demux_seqs.qza \
+  --o-visualization chinese_demux.qzv
+
+# Determine ASVs with DADA2, trunc to 378 to keep median quality score above 20
+qiime dada2 denoise-single \
+  --i-demultiplexed-seqs chinese_demux_seqs.qza \
+  --p-trim-left 0 \
+  --p-trunc-len 378 \
+  --o-representative-sequences chinese_rep-seqs.qza \
+  --o-table chinese_table.qza \
+  --o-denoising-stats chinese_stats.qza
+  
+# Visualize DADA2 stats
+qiime metadata tabulate \
+  --m-input-file chinese_stats.qza \
+  --o-visualization chinese_stats.qzv
+
+# Visualize ASVs stats
+qiime feature-table summarize \
+  --i-table chinese_table.qza \
+  --o-visualization chinese_table.qzv \
+  --m-sample-metadata-file /mnt/datasets/project_2/smoking/chinese_metadata.tsv
+  
+qiime feature-table tabulate-seqs \
+  --i-data chinese_rep-seqs.qza \
+  --o-visualization chinese_rep-seqs.qzv
+
+
+# Extract your amplicon of interest from the reference database
+#replace the ref-otus.qza with the representative sequence file on the server (e.g. /mnt/datasets/silva_ref_files/silva-138-99-seqs.qza)
+#replace primer sequences with your correct sequences
+#replace trunc-len with the one you defined in your denoising step
+qiime feature-classifier extract-reads \
+  --i-sequences /mnt/datasets/silva_ref_files/silva-138-99-seqs.qza \
+  --p-f-primer GTGCCAGCMGCCGCGGTAA \
+  --p-r-primer CCGTCAATTCCTTTGAGTTT \
+  --p-trunc-len 378 \
+  --o-reads ref-seqs-trimmed.qza
+
+# Train classifier with the new ref-seq file
+qiime feature-classifier fit-classifier-naive-bayes \
+  --i-reference-reads ref-seqs-trimmed.qza \
+  --i-reference-taxonomy /mnt/datasets/silva_ref_files/silva-138-99-tax.qza \
+  --o-classifier chinese_classifier.qza
+
+# Use the trained classifier to assign taxonomy to your reads rep-seqs.qza
+qiime feature-classifier classify-sklearn \
+  --i-classifier chinese_classifier.qza \
+  --i-reads chinese_rep-seqs.qza \
+  --o-classification chinese_taxonomy.qza
+
+qiime metadata tabulate \
+  --m-input-file chinese_taxonomy.qza \
+  --o-visualization chinese_taxonomy.qzv
+  
+# Taxonomy barplots
+qiime taxa barplot \
+  --i-table chinese_table.qza \
+  --i-taxonomy chinese_taxonomy.qza \
+  --m-metadata-file /mnt/datasets/project_2/smoking/chinese_metadata.tsv \
+  --o-visualization chinese_taxa-bar-plots.qzv
+
+# Generate a tree for phylogenetic diversity analyses
+qiime phylogeny align-to-tree-mafft-fasttree \
+  --i-sequences chinese_rep-seqs.qza \
+  --o-alignment chinese_aligned-rep-seqs.qza \
+  --o-masked-alignment chinese_masked-aligned-rep-seqs.qza \
+  --o-tree chinese_unrooted-tree.qza \
+  --o-rooted-tree chinese_rooted-tree.qza 
+
+# Alpha-rarefaction 
+qiime diversity alpha-rarefaction \
+  --i-table chinese_table.qza \
+  --i-phylogeny chinese_rooted-tree.qza \
+  --p-max-depth 450 \
+  --m-metadata-file /mnt/datasets/project_2/smoking/chinese_metadata.tsv \
+  --o-visualization chinese_alpha-rarefaction.qzv
+
+# Depth set to 46 to preserve at least 3 esmokers 
+
+#export for R
+qiime tools export \
+  --input-path chinese_table.qza \
+  --output-path chinese_export 
+qiime tools export \
+  --input-path chinese_rooted-tree.qza \
+  --output-path chinese_export 
+qiime tools export \
+  --input-path chinese_taxonomy.qza \
+  --output-path chinese_export 
+biom convert \
+-i chinese_export/feature-table.biom \
+--to-tsv \
+-o chinese_export/chinese_feature-table.txt
