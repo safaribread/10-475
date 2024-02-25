@@ -1,0 +1,179 @@
+Notes for working with the uk dataset
+Unless specified, all code was run in data/uk
+
+# to import demuxed file:
+
+qiime tools import \
+  --type "SampleData[PairedEndSequencesWithQuality]" \
+  --input-format PairedEndFastqManifestPhred33V2 \
+  --input-path uk_manifest2.tsv \ # original manifest file needed to have "sample Alias" column renamed to "sample-id" as well as updated file paths
+  --output-path uk_demux_seqs.qza
+
+qiime demux summarize \
+  --i-data uk_demux_seqs.qza \
+  --o-visualization uk_demux_seqs.qzv
+
+
+
+# denoising 
+# based on the demux qzv file, the forward reads can be trimmed 0-232 to maintain a median Phred score >30 while the reverse reads need 0-229. Trimming both 0-229 for simplicity.
+
+qiime dada2 denoise-paired \
+  --i-demultiplexed-seqs uk_demux_seqs.qza \
+  --p-trim-left-f 0 \
+  --p-trim-left-r 0 \
+  --p-trunc-len-f 229 \
+  --p-trunc-len-r 229 \
+  --o-representative-sequences uk_rep-seqs.qza \
+  --o-table uk_table.qza \
+  --o-denoising-stats uk_stats.qza
+
+
+# Visualize DADA2 stats
+qiime metadata tabulate \
+  --m-input-file uk_stats.qza \
+  --o-visualization uk_stats.qzv
+
+# Visualize ASVs stats
+qiime feature-table summarize \
+  --i-table uk_table.qza \
+  --o-visualization uk_table.qzv \
+  --m-sample-metadata-file /mnt/datasets/project_2/smoking/uk_metadata.tsv
+  
+qiime feature-table tabulate-seqs \
+  --i-data uk_rep-seqs.qza \
+  --o-visualization uk_rep-seqs.qzv
+
+
+# retraining the classifier
+#(source for primer sequences: from Stewart et al
+  qiime feature-classifier extract-reads \
+  --i-sequences /mnt/datasets/silva_ref_files/silva-138-99-seqs.qza \
+  --p-f-primer GTGYCAGCMGCCGCGGTAA \
+  --p-r-primer GGACTACNVGGGTWTCTAAT \
+  --p-trunc-len 229 \
+  --o-reads uk_ref-seqs-trimmed.qza
+
+# Train classifier with your new ref-seq file
+qiime feature-classifier fit-classifier-naive-bayes \
+  --i-reference-reads uk_ref-seqs-trimmed.qza \
+  --i-reference-taxonomy /mnt/datasets/silva_ref_files/silva-138-99-tax.qza \
+  --o-classifier uk_classifier.qza
+
+  # Use the trained classifier to assign taxonomy to your reads 
+qiime feature-classifier classify-sklearn \
+  --i-classifier uk_classifier.qza \
+  --i-reads uk_rep-seqs.qza \
+  --o-classification uk_taxonomy.qza
+
+qiime metadata tabulate \
+  --m-input-file uk_taxonomy.qza \
+  --o-visualization uk_taxonomy.qzv
+
+
+# Taxonomy barplots
+qiime taxa barplot \
+  --i-table uk_table.qza \
+  --i-taxonomy uk_taxonomy.qza \
+  --m-metadata-file /mnt/datasets/project_2/smoking/uk_metadata.tsv \
+  --o-visualization uk_taxa-bar-plots.qzv
+
+# removing mitochondrial and chloroplast sequences
+
+qiime taxa filter-table \
+  --i-table uk_table.qza \
+  --i-taxonomy uk_taxonomy.qza \
+  --p-exclude mitochondria,chloroplast \
+  --o-filtered-table uk_table-no-mitochondria-no-chloroplast.qza
+
+qiime feature-table summarize \
+  --i-table uk_table-no-mitochondria-no-chloroplast.qza \
+  --o-visualization uk_table-no-mitochondria-no-chloroplast.qzv \
+  --m-sample-metadata-file /mnt/datasets/project_2/smoking/uk_metadata.tsv
+
+# filtering uk_table-no-mitochondria-no-chloroplast.qza to only include saliva samples to find alpha rarefaction
+
+qiime feature-table filter-samples \
+  --i-table uk_table-no-mitochondria-no-chloroplast.qza \
+  --m-metadata-file /mnt/datasets/project_2/smoking/uk_metadata.tsv \
+  --p-where "[SampleType]='Saliva'" \
+  --o-filtered-table uk_table-no-mitochondria-no-chloroplast-saliva-only.qza
+
+# Generate a tree for phylogenetic diversity analyses
+qiime phylogeny align-to-tree-mafft-fasttree \
+  --i-sequences uk_rep-seqs.qza \
+  --o-alignment uk_aligned-rep-seqs.qza \
+  --o-masked-alignment uk_masked-aligned-rep-seqs.qza \
+  --o-tree uk_unrooted-tree.qza \
+  --o-rooted-tree uk_rooted-tree.qza 
+
+# Alpha-rarefaction- sampling depth of 17332 maximizes ASVs and number of samples retained while also being above the minimum of 2000.
+qiime diversity alpha-rarefaction \
+  --i-table uk_table.qza \
+  --i-phylogeny uk_rooted-tree.qza \
+  --p-max-depth 17332 \
+  --m-metadata-file /mnt/datasets/project_2/smoking/uk_metadata.tsv \
+  --o-visualization uk_alpha-rarefaction.qzv
+
+# Calculate alpha- and beta-diversity metrics
+qiime diversity core-metrics-phylogenetic \
+  --i-phylogeny uk_rooted-tree.qza \
+  --i-table uk_table-no-mitochondria-no-chloroplast.qza \
+  --p-sampling-depth 17332 \
+  --m-metadata-file /mnt/datasets/project_2/smoking/uk_metadata.tsv \
+  --output-dir uk_core-metrics-results
+
+# Calculate alpha- and beta-diversity metrics for saliva only
+qiime diversity core-metrics-phylogenetic \
+  --i-phylogeny uk_rooted-tree.qza \
+  --i-table uk_table-no-mitochondria-no-chloroplast-saliva-only.qza \
+  --p-sampling-depth 17332 \
+  --m-metadata-file /mnt/datasets/project_2/smoking/uk_metadata.tsv \
+  --output-dir uk_core-metrics-results-saliva-only
+
+
+# for uk_export
+
+mkdir uk_export
+
+qiime tools export \
+ --input-path uk_table-no-mitochondria-no-chloroplast.qza \
+ --output-path uk_export 
+
+qiime tools export \
+ --input-path uk_rooted-tree.qza \
+ --output-path uk_export 
+
+qiime tools export \
+ --input-path uk_taxonomy.qza \
+ --output-path uk_export 
+
+ biom convert \
+ -i uk_export/feature-table.biom \
+ --to-tsv \
+ -o uk_export/feature-table.txt
+
+
+
+# for uk_export-saliva-only
+
+mkdir uk_export-saliva-only
+
+qiime tools export \
+ --input-path uk_table-no-mitochondria-no-chloroplast-saliva-only.qza \
+ --output-path uk_export-saliva-only
+
+qiime tools export \
+ --input-path uk_rooted-tree.qza \
+ --output-path uk_export-saliva-only
+
+qiime tools export \
+ --input-path uk_taxonomy.qza \
+ --output-path uk_export-saliva-only
+
+ biom convert \
+ -i uk_export-saliva-only/feature-table.biom \
+ --to-tsv \
+ -o uk_export-saliva-only/feature-table.txt
+
+
