@@ -107,7 +107,7 @@ qiime phylogeny align-to-tree-mafft-fasttree \
   --o-tree uk_unrooted-tree.qza \
   --o-rooted-tree uk_rooted-tree.qza 
 
-# Alpha-rarefaction- sampling depth of 17332 maximizes ASVs and number of samples retained while also being above the minimum of 2000.
+# Alpha-rarefaction- sampling depth of 17332 maximizes ASVs retained while also being above the minimum of 2000.
 qiime diversity alpha-rarefaction \
   --i-table uk_table.qza \
   --i-phylogeny uk_rooted-tree.qza \
