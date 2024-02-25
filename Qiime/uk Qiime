@@ -107,11 +107,11 @@ qiime phylogeny align-to-tree-mafft-fasttree \
   --o-tree uk_unrooted-tree.qza \
   --o-rooted-tree uk_rooted-tree.qza 
 
-# Alpha-rarefaction- sampling depth of 17332 maximizes ASVs retained while also being above the minimum of 2000.
+# Alpha-rarefaction- maximum sampling depth that keeps at least 3 buccal swabs, saliva, and fecal samples across controls, tobacco smokers, and EC users is 16298.
 qiime diversity alpha-rarefaction \
   --i-table uk_table.qza \
   --i-phylogeny uk_rooted-tree.qza \
-  --p-max-depth 17332 \
+  --p-max-depth 20000 \
   --m-metadata-file /mnt/datasets/project_2/smoking/uk_metadata.tsv \
   --o-visualization uk_alpha-rarefaction.qzv
 
@@ -119,7 +119,7 @@ qiime diversity alpha-rarefaction \
 qiime diversity core-metrics-phylogenetic \
   --i-phylogeny uk_rooted-tree.qza \
   --i-table uk_table-no-mitochondria-no-chloroplast.qza \
-  --p-sampling-depth 17332 \
+  --p-sampling-depth 16298 \
   --m-metadata-file /mnt/datasets/project_2/smoking/uk_metadata.tsv \
   --output-dir uk_core-metrics-results
 
@@ -127,7 +127,7 @@ qiime diversity core-metrics-phylogenetic \
 qiime diversity core-metrics-phylogenetic \
   --i-phylogeny uk_rooted-tree.qza \
   --i-table uk_table-no-mitochondria-no-chloroplast-saliva-only.qza \
-  --p-sampling-depth 17332 \
+  --p-sampling-depth 16298 \
   --m-metadata-file /mnt/datasets/project_2/smoking/uk_metadata.tsv \
   --output-dir uk_core-metrics-results-saliva-only
 
