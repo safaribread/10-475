@@ -91,14 +91,6 @@ qiime feature-table summarize \
   --o-visualization uk_table-no-mitochondria-no-chloroplast.qzv \
   --m-sample-metadata-file /mnt/datasets/project_2/smoking/uk_metadata.tsv
 
-# filtering uk_table-no-mitochondria-no-chloroplast.qza to only include saliva samples to find alpha rarefaction
-
-qiime feature-table filter-samples \
-  --i-table uk_table-no-mitochondria-no-chloroplast.qza \
-  --m-metadata-file /mnt/datasets/project_2/smoking/uk_metadata.tsv \
-  --p-where "[SampleType]='Saliva'" \
-  --o-filtered-table uk_table-no-mitochondria-no-chloroplast-saliva-only.qza
-
 # Generate a tree for phylogenetic diversity analyses
 qiime phylogeny align-to-tree-mafft-fasttree \
   --i-sequences uk_rep-seqs.qza \
@@ -122,14 +114,6 @@ qiime diversity core-metrics-phylogenetic \
   --p-sampling-depth 16298 \
   --m-metadata-file /mnt/datasets/project_2/smoking/uk_metadata.tsv \
   --output-dir uk_core-metrics-results
-
-# Calculate alpha- and beta-diversity metrics for saliva only
-qiime diversity core-metrics-phylogenetic \
-  --i-phylogeny uk_rooted-tree.qza \
-  --i-table uk_table-no-mitochondria-no-chloroplast-saliva-only.qza \
-  --p-sampling-depth 16298 \
-  --m-metadata-file /mnt/datasets/project_2/smoking/uk_metadata.tsv \
-  --output-dir uk_core-metrics-results-saliva-only
 
 
 # for uk_export
@@ -155,25 +139,6 @@ qiime tools export \
 
 
 
-# for uk_export-saliva-only
 
-mkdir uk_export-saliva-only
-
-qiime tools export \
- --input-path uk_table-no-mitochondria-no-chloroplast-saliva-only.qza \
- --output-path uk_export-saliva-only
-
-qiime tools export \
- --input-path uk_rooted-tree.qza \
- --output-path uk_export-saliva-only
-
-qiime tools export \
- --input-path uk_taxonomy.qza \
- --output-path uk_export-saliva-only
-
- biom convert \
- -i uk_export-saliva-only/feature-table.biom \
- --to-tsv \
- -o uk_export-saliva-only/feature-table.txt
 
 
