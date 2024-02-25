@@ -85,7 +85,7 @@ qiime diversity alpha-rarefaction \
   --m-metadata-file /mnt/datasets/project_2/smoking/chinese_metadata.tsv \
   --o-visualization chinese_alpha-rarefaction.qzv
 
-# Depth set to 46 to preserve at least 3 esmokers 
+# Depth set to 41 to preserve at least 3 esmokers 
 
 #export for R
 qiime tools export \
