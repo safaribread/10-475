@@ -28,9 +28,16 @@
         # 6) Meeting is optional next week
         # 7) Going through proposal outline
         
-      #entry Thurs Feb 15, 2024
+      #entry Thurs Feb 29, 2024
         #Lab meeting agenda: 
         # 1) Talk about proposal 
         # 2) 
         # 3) 
         # 4) 
+
+        #Lab meeting minutes: 
+        # 1)  
+        # 2) 
+        # 3) 
+        # 4) 
+
