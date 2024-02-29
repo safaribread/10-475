@@ -31,9 +31,7 @@
       #entry Thurs Feb 29, 2024
         #Lab meeting agenda: 
         # 1) Talk about proposal 
-        # 2) 
-        # 3) 
-        # 4) 
+        # 2) Exact approaches to the research aims
 
         #Lab meeting minutes: 
         # 1)  
