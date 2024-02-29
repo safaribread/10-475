@@ -27,3 +27,10 @@
         # 5) Outline of aimes for proposal (Due 25th Feb): 1. Metadata wrangling (replace all spaces on the sheet with underscores, simplify the column names); 2. Quiime 2 pipeline (analyze each file separately, merge at .qza, make alpha refraction curve) 3. Alpha and Beta diversity, all of the matrix, done in R. Use alpha and beta diversity to find confounding variables (e.g. locations of samples, location of city change to just country) 4. Do a coremicrobiome analysis 5. Do differential abundance analysis
         # 6) Meeting is optional next week
         # 7) Going through proposal outline
+        
+      #entry Thurs Feb 15, 2024
+        #Lab meeting agenda: 
+        # 1) Talk about proposal 
+        # 2) 
+        # 3) 
+        # 4) 
