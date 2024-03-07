@@ -34,10 +34,9 @@
         # 2) Exact approaches to the research aims
 
         #Lab meeting minutes: 
-        # 1)  Jasonnnnnnnnnnnnnnnn
-        # 2) 
-        # 3) 
-        # 4) 
+        # 1) We come to the following conclusion:
+        # 2)  This analysis answers the question of whether buccal swabs and saliva samples' microbiomes are sufficiently similar so that they can be treated as the same sample. Now let’s assume we CAN combine the buccal swaps and saliva samples, our next step is to assess the Shannon diversity and dominant species between NS and S for all 3 geographical locations. This analysis answers the question of whether the change in oral microbiota as a result of smoking and vaping is different across the sampled regions. We expect to see that the change in oral microbiota is consistent across the sampled regions, due to the applied stressor to the oral microbiome being the same from the behaviour of smoking and vaping regardless of the geographical location. If the change is similar, we can combine the data sets for a more comprehensive analysis of our objectives.
+    
 
       #entry Thurs Mar 7, 2024
         #Lab meeting agenda: 
