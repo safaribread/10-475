@@ -44,7 +44,37 @@
         # 2) Examine proposal aim 1
 
         #Lab meeting minutes: 
-        # 1) Sinaaaaaaaaaaaaaaaaaa
-        # 2) 
-        # 3) Ran american and uk core alpha diversity measures (evenness and faith-ph) 
-        # 4) Decided not to combine buccal and saliva for both america and uk cohorts
+      #/
+      Aim 1
+      * Metadata 
+      * Qiime 
+      Aim 2
+      * Alpha diversity between buccal and saliva
+      * Beta diversity between buccal and saliva
+                * Taxonomic bar plots
+      * Do in R and isolate based on cohort 
+      * Effect of sampling location 
+      Aim 3
+      * Look at Alpha diversity between all 3 NS
+      * Look at Alpha diversity between all 3 S
+      * Look at Alpha diversity between all 2 V
+      * Look at dominant species between all 3 NS
+                * Taxonomic bar plots
+      * Look at dominant species between all 3 S
+                * Taxonomic bar plots
+      * Look at dominant species between all 2 V
+                * Taxonomic bar plots
+      * Effect of geography 
+      Aim 4
+      * Compare Shannon between NS and S within all 3 cohorts 
+      * Compare dominant species between NS and S within all 3 cohorts 
+                * Taxonomic bar plots
+      * Compare Shannon between NS and V within all 2 cohorts 
+      * Compare dominant species between NS and V within all 2 cohorts 
+                * Taxonomic bar plots
+      * Do in R 
+      * Looking at delta between NS and S in all cohorts, and comparing 
+      * Effect of smoking or vaping
+      -------
+        # Also Ran american and uk core alpha diversity measures (evenness and faith-ph) 
+        # Also Decided not to combine buccal and saliva for both america and uk cohorts
