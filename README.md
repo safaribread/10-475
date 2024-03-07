@@ -34,8 +34,18 @@
         # 2) Exact approaches to the research aims
 
         #Lab meeting minutes: 
-        # 1)  
+        # 1)  Jasonnnnnnnnnnnnnnnn
         # 2) 
         # 3) 
         # 4) 
 
+      #entry Thurs Mar 7, 2024
+        #Lab meeting agenda: 
+        # 1) Analysis plan 
+        # 2) Examine proposal aim 1
+
+        #Lab meeting minutes: 
+        # 1) Sinaaaaaaaaaaaaaaaaaa
+        # 2) 
+        # 3) Ran american and uk core alpha diversity measures (evenness and faith-ph) 
+        # 4) Decided not to combine buccal and saliva for both america and uk cohorts
