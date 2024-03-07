@@ -138,6 +138,16 @@ qiime tools export \
  -o uk_export/feature-table.txt
 
 
+# Calculate alpha-group-significance
+qiime diversity alpha-group-significance \
+  --i-alpha-diversity uk_core-metrics-results/faith_pd_vector.qza \
+  --m-metadata-file /mnt/datasets/project_2/smoking/uk_metadata.tsv \
+  --o-visualization uk_core-metrics-results/faith-pd-group-significance.qzv
+
+qiime diversity alpha-group-significance \
+  --i-alpha-diversity uk_core-metrics-results/evenness_vector.qza \
+  --m-metadata-file /mnt/datasets/project_2/smoking/uk_metadata.tsv \
+  --o-visualization uk_core-metrics-results/evenness-group-significance.qzv
 
 
 
