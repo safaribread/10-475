@@ -152,3 +152,49 @@ qiime diversity alpha-group-significance \
 
 
 
+# for uk_export-saliva-buccal-only (i.e. removing feces samples)
+
+qiime feature-table filter-samples \
+  --i-table uk_table-no-mitochondria-no-chloroplast.qza \
+  --m-metadata-file /mnt/datasets/project_2/smoking/uk_metadata.tsv \
+  --p-where "[SampleType] IN ('Saliva', 'Buccal Swab')" \
+  --o-filtered-table uk_table-no-mitochondria-no-chloroplast-saliva-buccal-only.qza
+
+  # Calculate alpha- and beta-diversity metrics for saliva and buccal swab samples only
+qiime diversity core-metrics-phylogenetic \
+  --i-phylogeny uk_rooted-tree.qza \
+  --i-table uk_table-no-mitochondria-no-chloroplast-saliva-buccal-only.qza \
+  --p-sampling-depth 16298 \
+  --m-metadata-file /mnt/datasets/project_2/smoking/uk_metadata.tsv \
+  --output-dir uk_core-metrics-results-saliva-buccal-only
+
+mkdir uk_export-saliva-buccal-only
+
+qiime tools export \
+ --input-path uk_table-no-mitochondria-no-chloroplast-saliva-buccal-only.qza \
+ --output-path uk_export-saliva-buccal-only
+
+qiime tools export \
+ --input-path uk_rooted-tree.qza \
+ --output-path uk_export-saliva-buccal-only
+
+qiime tools export \
+ --input-path uk_taxonomy.qza \
+ --output-path uk_export-saliva-buccal-only
+
+ biom convert \
+ -i uk_export-saliva-buccal-only/feature-table.biom \
+ --to-tsv \
+ -o uk_export-saliva-buccal-only/feature-table.txt
+
+# Calculate alpha-group-significance (saliva-buccal-only)
+qiime diversity alpha-group-significance \
+  --i-alpha-diversity uk_core-metrics-results-saliva-buccal-only/faith_pd_vector.qza \
+  --m-metadata-file /mnt/datasets/project_2/smoking/uk_metadata.tsv \
+  --o-visualization uk_core-metrics-results-saliva-buccal-only/faith-pd-group-significance.qzv
+
+
+qiime diversity alpha-group-significance \
+  --i-alpha-diversity uk_core-metrics-results-saliva-buccal-only/evenness_vector.qza \
+  --m-metadata-file /mnt/datasets/project_2/smoking/uk_metadata.tsv \
+  --o-visualization uk_core-metrics-results-saliva-buccal-only/evenness-group-significance.qzv
