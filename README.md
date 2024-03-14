@@ -1,7 +1,7 @@
 write_rds(Your-phylo-seq-object, "/path/Name.RDS")
 # 10-475
 
-# entry Thurs Feb 8, 2024 
+# Entry Thurs Feb 8, 2024 
       # Lab meeting minutes: 
         # 1) redo metadata files and check and make sure all of them have (smoker status) 
         # 2) and if needed, convert some data types (e.g. if the smoking level is classified in numbers, convert it) 
@@ -29,7 +29,7 @@ write_rds(Your-phylo-seq-object, "/path/Name.RDS")
         # 6) Meeting is optional next week
         # 7) Going through proposal outline
         
-# entry Thurs Feb 29, 2024
+# Entry Thurs Feb 29, 2024
         #Lab meeting agenda: 
         # 1) Talk about proposal 
         # 2) Exact approaches to the research aims
@@ -39,7 +39,7 @@ write_rds(Your-phylo-seq-object, "/path/Name.RDS")
         # 2)  This analysis answers the question of whether buccal swabs and saliva samples' microbiomes are sufficiently similar so that they can be treated as the same sample. Now let’s assume we CAN combine the buccal swaps and saliva samples, our next step is to assess the Shannon diversity and dominant species between NS and S for all 3 geographical locations. This analysis answers the question of whether the change in oral microbiota as a result of smoking and vaping is different across the sampled regions. We expect to see that the change in oral microbiota is consistent across the sampled regions, due to the applied stressor to the oral microbiome being the same from the behaviour of smoking and vaping regardless of the geographical location. If the change is similar, we can combine the data sets for a more comprehensive analysis of our objectives.
     
 
-# entry Thurs Mar 7, 2024
+# Entry Thurs Mar 7, 2024
         #Lab meeting agenda: 
         # 1) Analysis plan 
         # 2) Examine proposal aim 1
@@ -80,10 +80,9 @@ write_rds(Your-phylo-seq-object, "/path/Name.RDS")
         # Also Ran american and uk core alpha diversity measures (evenness and faith-ph) 
         # Also Decided not to combine buccal and saliva for both america and uk cohorts
 
- # entry Thurs Mar 14, 2024
+ # Entry Thurs Mar 14, 2024
         #Lab meeting agenda: 
         # 1) R phyloseq script troubleshoot 
-        # 2) 
 
         #Lab meeting minutes: 
         # 1) R phyloseq script troubleshoot
