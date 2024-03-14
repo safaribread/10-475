@@ -79,3 +79,14 @@ write_rds(Your-phylo-seq-object, "/path/Name.RDS")
       -------
         # Also Ran american and uk core alpha diversity measures (evenness and faith-ph) 
         # Also Decided not to combine buccal and saliva for both america and uk cohorts
+
+ #entry Thurs Mar 14, 2024
+        #Lab meeting agenda: 
+        # 1) R phyloseq script troubleshoot 
+        # 2) 
+
+        #Lab meeting minutes: 
+        # 1) R phyloseq script troubleshoot
+        # 2) Fixing TAX table 
+        # 3) Filter phyloseq
+     
