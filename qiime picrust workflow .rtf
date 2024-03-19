@@ -5,21 +5,23 @@
 \margl1440\margr1440\vieww11520\viewh8400\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
-\f0\fs24 \cf0 QIIME -> PICRUST bash workflow \
+\f0\fs24 \cf0 \
+\
+PICRUST\
+PICRUST\
+PICRUST\
+PICRUST\
+PICRUST\
+PICRUST\
+PICRUST\
 \
 \
 For UK\
-\
- 	# filter the table to remove features with less than 5 reads to streamline picrust workflow\
 \
 qiime feature-table filter-features \\\
   --i-table uk/uk_table.qza \\\
   --p-min-frequency 5 \\\
   --o-filtered-table uk-feature-frequency-filtered-table.qza\
-\
-\
-\
-	# running picrust2 pipeline through qiime\
 \
 qiime picrust2 full-pipeline \\\
   --i-table uk-feature-frequency-filtered-table.qza \\\
@@ -32,23 +34,60 @@ qiime picrust2 full-pipeline \\\
 \
 \
 \
+# Converting outputs to human readable files\
+\
+		# converting pathway abundance\
+\
+\
+qiime tools export \\\
+  --input-path pathway_abundance.qza \\\
+  --output-path pathabun_exported\
+\
+biom convert \\\
+   -i pathabun_exported/feature-table.biom \\\
+   -o pathabun_exported/pathway_abundance.tsv \\\
+   --to-tsv\
+\
+\
+		# converting ko_metagenome\
+\
+\
+qiime tools export \\\
+  --input-path ko_metagenome.qza \\\
+  --output-path ko_exported\
+\
+biom convert \\\
+   -i ko_exported/feature-table.biom \\\
+   -o ko_exported/ko_metagenome.tsv \\\
+   --to-tsv\
+\
+		# converting ec_metagenome\
+\
+\
+qiime tools export \\\
+  --input-path ec_metagenome.qza \\\
+  --output-path ec_exported\
+\
+biom convert \\\
+   -i ec_exported/feature-table.biom \\\
+   -o ec_exported/ec_metagenome.tsv \\\
+   --to-tsv\
+\
+\
+\
 \
 \
 For US\
 \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf0  	# filter the table to remove features with less than 5 reads to streamline picrust workflow\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf0 \
+\
+\
 qiime feature-table filter-features \\\
   --i-table america/table_america.qza \\\
   --p-min-frequency 5 \\\
   --o-filtered-table us-feature-frequency-filtered-table.qza\
 \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf0 	# running picrust2 pipeline through qiime\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf0 	# the p-edge-exponent == 0 term is to prevent some issues due to low RAM;\
+\
+	# the p-edge-exponent == 0 term is to prevent some issues due to low RAM;\
 	# try without it and remove that line if no error occurs\
 \
 qiime picrust2 full-pipeline \\\
@@ -62,24 +101,56 @@ qiime picrust2 full-pipeline \\\
   --verbose\
 \
 \
+	# Converting outputs to human readable files\
+\
+		# converting pathway abundance\
+\
+\
+qiime tools export \\\
+  --input-path pathway_abundance.qza \\\
+  --output-path pathabun_exported\
+\
+biom convert \\\
+   -i pathabun_exported/feature-table.biom \\\
+   -o pathabun_exported/pathway_abundance.tsv \\\
+   --to-tsv\
+\
+\
+		# converting ko_metagenome\
+\
+\
+qiime tools export \\\
+  --input-path ko_metagenome.qza \\\
+  --output-path ko_exported\
+\
+biom convert \\\
+   -i ko_exported/feature-table.biom \\\
+   -o ko_exported/ko_metagenome.tsv \\\
+   --to-tsv\
+\
+		# converting ec_metagenome\
+\
+\
+qiime tools export \\\
+  --input-path ec_metagenome.qza \\\
+  --output-path ec_exported\
+\
+biom convert \\\
+   -i ec_exported/feature-table.biom \\\
+   -o ec_exported/ec_metagenome.tsv \\\
+   --to-tsv\
+\
+\
 \
 \
 For CHINA \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf0  \
-	# filter the table to remove features with less than 5 reads to streamline picrust workflow\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf0 \
+\
 qiime feature-table filter-features \\\
   --i-table chinese/chinese_table.qza \\\
   --p-min-frequency 5 \\\
   --o-filtered-table china-feature-frequency-filtered-table.qza\
 \
 \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf0 	# running picrust2 pipeline through qiime\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf0 \
 qiime picrust2 full-pipeline \\\
   --i-table china-feature-frequency-filtered-table.qza \\\
   --i-seq chinese/chinese_rep-seqs.qza \\\
@@ -92,22 +163,57 @@ qiime picrust2 full-pipeline \\\
 \
 \
 \
+\
+# Converting outputs to human readable files\
+\
+		# converting pathway abundance\
+\
+\
+qiime tools export \\\
+  --input-path pathway_abundance.qza \\\
+  --output-path pathabun_exported\
+\
+biom convert \\\
+   -i pathabun_exported/feature-table.biom \\\
+   -o pathabun_exported/pathway_abundance.tsv \\\
+   --to-tsv\
+\
+\
+		# converting ko_metagenome\
+\
+\
+qiime tools export \\\
+  --input-path ko_metagenome.qza \\\
+  --output-path ko_exported\
+\
+biom convert \\\
+   -i ko_exported/feature-table.biom \\\
+   -o ko_exported/ko_metagenome.tsv \\\
+   --to-tsv\
+\
+		# converting ec_metagenome\
+\
+\
+qiime tools export \\\
+  --input-path ec_metagenome.qza \\\
+  --output-path ec_exported\
+\
+biom convert \\\
+   -i ec_exported/feature-table.biom \\\
+   -o ec_exported/ec_metagenome.tsv \\\
+   --to-tsv\
+\
+\
+\
 For ALL\
 \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf0  	# filter the table to remove features with less than 5 reads to streamline picrust workflow\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf0 \
 qiime feature-table filter-features \\\
   --i-table all_merged_table.qza \\\
   --p-min-frequency 5 \\\
   --o-filtered-table all-feature-frequency-filtered-table.qza\
 \
 \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf0 	# running picrust2 pipeline through qiime\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf0 	# the p-edge-exponent == 0 term is to prevent some issues due to low RAM;\
+	# the p-edge-exponent == 0 term is to prevent some issues due to low RAM;\
 	# try without it and remove that line if no error occurs\
 \
 qiime picrust2 full-pipeline \\\
@@ -118,4 +224,60 @@ qiime picrust2 full-pipeline \\\
   --p-hsp-method mp \\\
   --p-edge-exponent 0 \\\
   --p-max-nsti 2 \\\
-  --verbose}
+  --verbose\
+\
+\
+\
+	# Converting outputs to human readable files\
+\
+qiime tools export \\\
+  --input-path pathway_abundance.qza \\\
+  --output-path pathabun_exported\
+\
+biom convert \\\
+   -i pathabun_exported/feature-table.biom \\\
+   -o pathabun_exported/pathway_abundance.tsv \\\
+   --to-tsv\
+\
+\
+# Converting outputs to human readable files\
+\
+		# converting pathway abundance\
+\
+\
+qiime tools export \\\
+  --input-path pathway_abundance.qza \\\
+  --output-path pathabun_exported\
+\
+biom convert \\\
+   -i pathabun_exported/feature-table.biom \\\
+   -o pathabun_exported/pathway_abundance.tsv \\\
+   --to-tsv\
+\
+\
+		# converting ko_metagenome\
+\
+\
+qiime tools export \\\
+  --input-path ko_metagenome.qza \\\
+  --output-path ko_exported\
+\
+biom convert \\\
+   -i ko_exported/feature-table.biom \\\
+   -o ko_exported/ko_metagenome.tsv \\\
+   --to-tsv\
+\
+		# converting ec_metagenome\
+\
+\
+qiime tools export \\\
+  --input-path ec_metagenome.qza \\\
+  --output-path ec_exported\
+\
+biom convert \\\
+   -i ec_exported/feature-table.biom \\\
+   -o ec_exported/ec_metagenome.tsv \\\
+   --to-tsv\
+\
+\
+}
