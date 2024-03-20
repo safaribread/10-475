@@ -1,0 +1,59 @@
+qiime feature-table merge \
+ --i-tables chinese/chinese_table.qza \
+ --i-tables uk/uk_table.qza \
+ --i-tables america/table_america.qza \
+ --o-merged-table all_merged_table.qza
+
+qiime feature-table merge-seqs \
+ --i-data chinese/chinese_rep-seqs.qza \
+ --i-data uk/uk_rep-seqs.qza \
+ --i-data america/rep-seqs_america.qza \
+ --o-merged-data all_merged_rep-seqs.qza
+
+ qiime phylogeny align-to-tree-mafft-fasttree \
+ --i-sequences all_merged_rep-seqs.qza \
+ --o-alignment all_merged_aligned-rep-seqs.qza \
+ --o-masked-alignment all_merged_masked-aligned-rep-seqs.qza \
+ --o-tree all_merged_unrooted-tree.qza \
+ --o-rooted-tree all_merged_rooted-tree.qza
+
+mkdir all_phyloseq
+ qiime tools export \
+ --input-path all_merged_table.qza \
+ --output-path all_phyloseq
+
+biom convert \
+ -i all_phyloseq/feature-table.biom \
+ -o all_phyloseq/all_otu_table.tsv \
+ --to-tsv
+cd all_phyloseq
+sed -i '1d' all_otu_table.tsv 
+sed -i 's/#OTU ID//' all_otu_table.tsv 
+cd ../
+
+qiime tools export \
+ --input-path all_merged_rep-seqs.qza \
+ --output-path all_phyloseq 
+
+qiime tools export \
+ --input-path all_merged_unrooted-tree.qza \
+ --output-path all_phyloseq
+cd all_phyloseq
+mv tree.nwk all_merged_unrooted_tree.nwk
+cd ../
+
+qiime tools export \
+ --input-path all_merged_rooted-tree.qza \
+ --output-path all_phyloseq
+cd all_phyloseq
+mv tree.nwk all_rooted_tree.nwk
+
+qiime feature-table merge-taxa \
+  --i-data chinese/chinese_taxonomy.qza \
+  --i-data uk/uk_taxonomy.qza \
+  --i-data america/taxonomy_america.qza \
+  --o-merged-data all_merged_taxonomy.qza
+
+qiime tools export \
+ --input-path all_merged_taxonomy.qza \
+ --output-path all_phyloseq
