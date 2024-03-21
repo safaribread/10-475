@@ -98,14 +98,14 @@ write_rds(Your-phylo-seq-object, "/path/Name.RDS")
         # 1) Examine the alpha and beta diversity of each dataset
         # 2) Examine the compiled PCoA plot of merged dataset
         # 3) Plan to modify the PCoA plots (shape by other variables, color by smoking status)
-        # 4) Make PCoA plot of the merged dataset by coloring by location
+        # 4) Make PCoA plot of the merged dataset by coloring by location, using a lower alpha value
         # 5) Plan to make PCoA plots for each datasets in general
         # 6) Discuss plan moving forward: 
               make rarefication parameters the same for all datasets, pick a number regardless of the Chinese dataset. 
               it is ok to delete chinese dataset --> requires justification, e.g. low sampling depth 
               only look at saliva samples for all analysis
-              remake all R to make all the alpha and beta diversities with significance
+              remake all R to make all the alpha and beta diversities with significance with Wilcoxon/Mann-Whitney test or Kruskall-wallis test
               is there significant alpha diversities within each cohort (saliva, smoking status)
               beta diversities for america and uk datasets 
-              PCoA plot for each dataset
+              PCoA plot for each dataset distinguishing smoking status with significance with PERMANOVA 
      
