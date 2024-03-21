@@ -108,4 +108,5 @@ write_rds(Your-phylo-seq-object, "/path/Name.RDS")
               is there significant alpha diversities within each cohort (saliva, smoking status)
               beta diversities for america and uk datasets 
               PCoA plot for each dataset distinguishing smoking status with significance with PERMANOVA 
+              core-microbiome and indicator species with non-rarefied phyloseq object 
      
