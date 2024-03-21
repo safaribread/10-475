@@ -89,4 +89,23 @@ write_rds(Your-phylo-seq-object, "/path/Name.RDS")
         # 2) Fixing TAX table 
         # 3) Plan to filter phyloseq
         # 4) Plan to make bar graph for the taxonomic composition of each cohort colored by phylum
+
+ # Entry Thurs Mar 21, 2024
+        #Lab meeting agenda: 
+        # 1) Discuss alpha and beta diversity graphs of each dataset separately 
+
+        #Lab meeting minutes: 
+        # 1) Examine the alpha and beta diversity of each dataset
+        # 2) Examine the compiled PCoA plot of merged dataset
+        # 3) Plan to modify the PCoA plots (shape by other variables, color by smoking status)
+        # 4) Make PCoA plot of the merged dataset by coloring by location
+        # 5) Plan to make PCoA plots for each datasets in general
+        # 6) Discuss plan moving forward: 
+              make rarefication parameters the same for all datasets, pick a number regardless of the Chinese dataset. 
+              it is ok to delete chinese dataset --> requires justification, e.g. low sampling depth 
+              only look at saliva samples for all analysis
+              remake all R to make all the alpha and beta diversities with significance
+              is there significant alpha diversities within each cohort (saliva, smoking status)
+              beta diversities for america and uk datasets 
+              PCoA plot for each dataset
      
