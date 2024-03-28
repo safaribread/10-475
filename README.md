@@ -109,4 +109,28 @@ write_rds(Your-phylo-seq-object, "/path/Name.RDS")
               beta diversities for america and uk datasets 
               PCoA plot for each dataset distinguishing smoking status with significance with PERMANOVA 
               core-microbiome and indicator species with non-rarefied phyloseq object 
-     
+
+# Entry Thurs Mar 28, 2024
+        #Lab meeting agenda: 
+        # 1) Discuss alpha and beta diversity graphs of each dataset 
+        # 2) Discuss indicator species and core microbiome analysis
+
+        #Lab meeting minutes: 
+        # 1) Focus on American as it had significant difference between EC and C and all 3 smoking status
+        # 2) Redo venn diagram 
+        # 3) Why is smoking not doing much to alpha diversity
+        # 4) Do differential abundance 
+        # 5) Comparing the C and NS of the other dataset too
+        # 6) By next week meeting have the figure done
+        # 7) Discuss the figure plan (JUST ONE DATASET):
+        figure 1: alpha observed shannon and faith as 3 panels and stats 
+        figure 2: 3 way venn diagram 
+        figure 3: taxa bar plot 
+        figure 4: DESeq: 4 panels one volcano S vs NS, corresponding bar plot, EC vs NS volcano, corresponding bar plot 
+        figure 5: PiCrust: 2 panels: C vs NS, V vs NS bar plots.
+        table 1: indicator taxa, only keep the 2 unique to each taxa 
+
+        figure s1: beta diversity of the 3 status cohort 
+        
+        
+             
