@@ -132,5 +132,20 @@ write_rds(Your-phylo-seq-object, "/path/Name.RDS")
 
         figure s1: beta diversity of the 3 status cohort 
         
-        
+# Entry Thurs Apr 4, 2024
+        #Lab meeting agenda: 
+        # 1) Discuss figures  
+        # 2) Plans for presentation and manuscript
+
+        #Lab meeting minutes: 
+        # 1) Examine existing figure 1 and 2 
+        # 2) For the lack of difference in alpha diversity, there might still be other differences. The current figure 1 did not account for any confounding variables
+        # 3) PiCrust no significant/known pathways implicated but enough -> key points there is a difference. 
+        # 4) Figure 2: more shared species between C and EC -> good
+        # 5) Have the ppt ready by next Monday meeting
+        # 6) Discuss the figure plan (JUST ONE DATASET):
+        Same plan
+        figure 3 taxa bar plot of each smoking status, phylum (usually easier) or family
+        figure 2s: PiCrust heat map potentially
+         
              
