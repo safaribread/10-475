@@ -146,6 +146,6 @@ write_rds(Your-phylo-seq-object, "/path/Name.RDS")
         # 6) Discuss the figure plan (JUST ONE DATASET):
         Same plan
         figure 3 taxa bar plot of each smoking status, phylum (usually easier) or family
-        figure 2s: PiCrust heat map potentially
+        figure s2: PiCrust heat map potentially
          
              
