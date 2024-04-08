@@ -101,9 +101,7 @@ pathway_heatmap(abundance = abundance_desc %>% column_to_rownames("feature"), me
 
 # DOES NOT WORK atm
 # Generate pathway PCA plot
-pathway_pca(abundance = abundance_data_filtered %>% column_to_rownames("pathway"), metadata = metadata, group = "Smoking_status")
-
-
+#pathway_pca(abundance = abundance_data_filtered %>% column_to_rownames("pathway"), metadata = metadata, group = "Smoking_status")
 
 
 

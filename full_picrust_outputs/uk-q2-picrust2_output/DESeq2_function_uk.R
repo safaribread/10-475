@@ -6,6 +6,7 @@ DEseq2_function = function(abundance_table,metadata,col_of_interest){
   
   
   DESeq2_metadata <- metadata
+  
   DESeq2_abundance_mat <- abundance_table %>% column_to_rownames("pathway")
   
   
@@ -15,10 +16,16 @@ DEseq2_function = function(abundance_table,metadata,col_of_interest){
   colnames(DESeq2_metadata) <- DESeq2_colnames
   DESeq2_metadata = as.data.frame(DESeq2_metadata)
   DESeq2_metadata[,"Smoking_status"] <- as.factor(DESeq2_metadata[,"Smoking_status"])
-  
+  DESeq2_metadata$Smoking_status = relevel(DESeq2_metadata$Smoking_status, ref="NS")
+
   # Generate combinations of groups for comparison
   DESeq2_combinations <- utils::combn(unique(DESeq2_metadata[, "Smoking_status"]), 2)
   DESeq2_results <- list()
+  
+  
+  # only thing im adding
+  
+  
   
   # Loop through combinations and perform DESeq2 analysis
   message("Performing pairwise comparisons with DESeq2...")

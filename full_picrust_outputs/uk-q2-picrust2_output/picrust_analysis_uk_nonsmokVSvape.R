@@ -102,11 +102,11 @@ abundance_desc = abundance_desc[,-c(20:ncol(abundance_desc))]
 pathway_heatmap(abundance = abundance_desc %>% column_to_rownames("feature"), metadata = metadata, group = "Smoking_status")
 
 # Generate pathway PCA plot
-pathway_pca(abundance = abundance_data_filtered %>% column_to_rownames("pathway"), metadata = metadata, group = "Smoking_status")
+#pathway_pca(abundance = abundance_data_filtered %>% column_to_rownames("pathway"), metadata = metadata, group = "Smoking_status")
 
 # Generating a bar plot representing log2FC from the custom deseq2 function
 
-levels(metadata$Smoking_status)
+# levels(metadata$Smoking_status)
 
 # Go to the Deseq2 function script and update the metadata category of interest
 
