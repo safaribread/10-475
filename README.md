@@ -1,4 +1,3 @@
-write_rds(Your-phylo-seq-object, "/path/Name.RDS")
 # 10-475
 
 # Entry Thurs Feb 8, 2024 
