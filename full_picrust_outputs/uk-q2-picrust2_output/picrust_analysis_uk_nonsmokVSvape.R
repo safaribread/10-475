@@ -55,7 +55,7 @@ metadata <- read_delim("metadataFull.tsv")
 # keeping only the uk data, saliva sample type, and only from vaper / non smoking subjects
 metadata = metadata[metadata$Data_Origin == "UK_Stewart_et_al", ]
 metadata = metadata[metadata$Sample_type == "Saliva", ]
-metadata <- metadata[metadata$Smoking_status %in% c("EC", "NS"), ]
+metadata <- metadata[metadata$Smoking_status %in% c("NS", "EC"), ]
 
 #Filtering the abundance table to only include samples that are in the filtered metadata
 sample_names = metadata$'Sample_ID'
@@ -105,6 +105,8 @@ pathway_heatmap(abundance = abundance_desc %>% column_to_rownames("feature"), me
 pathway_pca(abundance = abundance_data_filtered %>% column_to_rownames("pathway"), metadata = metadata, group = "Smoking_status")
 
 # Generating a bar plot representing log2FC from the custom deseq2 function
+
+levels(metadata$Smoking_status)
 
 # Go to the Deseq2 function script and update the metadata category of interest
 

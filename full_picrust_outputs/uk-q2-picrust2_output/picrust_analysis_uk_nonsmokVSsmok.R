@@ -47,7 +47,7 @@ metadata <- read_delim("metadataFull.tsv")
 #only keep rows from the UK study, using saliva sample, and this analysis is cigarette vs non smokers only
 metadata = metadata[metadata$Data_Origin == "UK_Stewart_et_al", ]
 metadata = metadata[metadata$Sample_type == "Saliva", ]
-metadata <- metadata[metadata$Smoking_status %in% c("C", "NS"), ]
+metadata <- metadata[metadata$Smoking_status %in% c("NS", "C"), ]
 
 #Filtering the abundance table to only include samples that are in the filtered metadata
 sample_names = metadata$'Sample_ID'
