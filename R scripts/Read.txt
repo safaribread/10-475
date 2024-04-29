@@ -1,0 +1,1 @@
+Note for use: all R scripts are in the Smoking folder. Please put the Smoking folder in the Desktop folder before use.
